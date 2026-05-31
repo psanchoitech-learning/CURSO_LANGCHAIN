@@ -63,6 +63,31 @@ GitHub ya no acepta usuario/contraseña por HTTPS. Tienes dos opciones:
 
      > Si tu versión de Git es reciente (2.29+), GCM ya está configurado como helper por defecto y puede que no necesites ni ejecutar ese comando. Puedes verificarlo con `git config --global credential.helper`.
 
+     > [!IMPORTANT]
+     > En Windows, con `credential.helper store`, las credenciales se guardan en texto plano en:
+     >
+     > ```
+     > C:\Users\<TuUsuario>\.git-credentials
+     > ```
+     >
+     > El formato del fichero es muy simple, una línea por credencial:
+     > 
+     > ```
+     > https://usuario:token@github.com
+     > ```
+     >
+     > `store` guarda en **texto plano sin cifrado**. En Windows lo habitual y recomendado es usar en su lugar el gestor nativo:
+     > ```bash
+     > git config --global credential.helper manager
+     > ```
+     > Con `manager` (Git Credential Manager), las credenciales se almacenan en el **Administrador de credenciales de Windows** (`Control Panel > Credential Manager > Windows Credentials`), cifradas por el sistema operativo, que es mucho más seguro.
+     >
+     > Puedes ver qué helper tienes configurado actualmente con:
+     > 
+     > ```bash
+     > git config --global credential.helper
+     > ```
+
 - En ***Ubuntu/Linux***:
      ```bash
      git config --global credential.helper store
